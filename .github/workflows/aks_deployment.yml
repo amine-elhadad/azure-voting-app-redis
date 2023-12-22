@@ -35,23 +35,25 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: "Set AKS context"
-        id: set-context
-        uses: azure/aks-set-context@v3
-        with:
-          resource-group: "${{ secrets.RESOURCE_GROUP_NAME }}"
-          cluster-name: "${{ secrets.CLUSTER_NAME }}"
-
-      - name: "Setup kubectl"
-        id: install-kubectl
-        uses: azure/setup-kubectl@v3
-
       - name: "Set up kubelogin"
         uses: azure/use-kubelogin@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           kubelogin-version: "latest"
+
+      - name: "Set AKS context"
+        id: set-context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: "${{ secrets.RESOURCE_GROUP_NAME }}"
+          cluster-name: "${{ secrets.CLUSTER_NAME }}"
+          admin: "false"
+          use-kubelogin: "true"
+
+      - name: "Setup kubectl"
+        id: install-kubectl
+        uses: azure/setup-kubectl@v3
 
       - name: "Deploy to AKS"
         id: deploy-aks
