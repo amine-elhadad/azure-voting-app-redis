@@ -59,7 +59,7 @@ jobs:
         id: deploy-aks
         uses: Azure/k8s-deploy@v4
         with:
-          namespace: "vote-app"
+          namespace: "default"
           manifests: |
             azure-vote-all-in-one-redis.yaml
           images: "${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ secrets.REPOSITORY_NAME }}/azure-vote-front:${{ github.sha }}"
