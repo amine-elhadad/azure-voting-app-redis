@@ -5,7 +5,7 @@ on:
       - dev
     paths:
       - "azure-vote/**"
-      - "github/workflows/aks_deployment.yml"
+      - ".github/workflows/aks_deployment.yml"
 
 jobs:
   build:
@@ -27,7 +27,7 @@ jobs:
           folder: azure-vote # Build Context for docker agent
           dockerfile: ./Dockerfile # Dockerfile path
           branch: master
-          tag: "{{${{ github.sha }}}}"
+          tag: "{{${{ github.sha }}}}" # Tag for the docker image
           git_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Azure login"
