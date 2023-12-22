@@ -25,6 +25,8 @@ jobs:
           repository: ${{ secrets.REPOSITORY_NAME }}
           image: azure-vote-front
           folder: azure-vote # Build Context for docker agent
+          dockerfile: ./Dockerfile # Dockerfile path
+          tag: ${{ github.sha }}
           git_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Azure login"
